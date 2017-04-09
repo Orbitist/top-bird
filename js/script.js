@@ -1,12 +1,10 @@
-
-
 // Get Bird Data //
 var birdList = (function () {
   var birdList = null;
     $.ajax({
         'async': false,
         'global': false,
-        'url': 'http://ebird.org/ws1.1/data/obs/geo/recent?lng=-76.51&lat=42.46&dist=2&back=5&maxResults=500&locale=en_US&fmt=json',
+        'url': 'http://ebird.org/ws1.1/data/obs/loc/recent?r=L99381&r=L104031&back=30&maxResults=3000&detail=full&locale=en_US&fmt=json&includeProvisional=true',
         'dataType': "json",
         'success': function (data) {
             birdList = data;
@@ -15,9 +13,9 @@ var birdList = (function () {
     return birdList;
 })();
 
-
+// Render the Bird List
 function renderBirdList() {
   for (var i = 0; i < birdList.length; i++) {
-    $('.bird-list').append('<p>' + birdList[i].comName + '</p>');
+    $('.bird-list').append('<p>' + birdList[i].comName + ' <strong>(' + birdList[i].howMany + ')</strong>' + '</p>');
   }
 }
